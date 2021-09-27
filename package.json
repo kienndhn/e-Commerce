@@ -13,7 +13,7 @@
     "data:destroy": "node backend/seeder -d",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "",
+  "author": "kienndhn",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
