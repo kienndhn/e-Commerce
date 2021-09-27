@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-const uri = process.env.MONGO_URI || "mongodb+srv://admin:cntt08k62@cluster0.hfma5.mongodb.net/ecommerce?retryWrites=true&w=majority"
+const URI = process.env.MONGO_URI || "mongodb+srv://admin:cntt08k62@cluster0.hfma5.mongodb.net/ecommerce?retryWrites=true&w=majority"
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(uri, {
+    const conn = await mongoose.connect(URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
