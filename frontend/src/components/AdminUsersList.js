@@ -29,10 +29,10 @@ export default function AdminUsersList() {
     return (
 
         mode === "USERS_LIST" &&
-        <>
+        <div style={{overflow:"auto"}}>
             <h2>Dang sách người dùng</h2>
 
-            <table className='table-sm table table-striped table-bordered table-hover table-responsive'>
+            <table className='table-sm table table-striped table-bordered table-hover'>
                 <thead className="text-center">
                     <tr>
                         <th><p>STT</p></th>
@@ -83,6 +83,6 @@ export default function AdminUsersList() {
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }

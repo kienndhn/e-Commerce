@@ -14,6 +14,8 @@ import UserInfo from '../components/UserInfo'
 import AdminOrdersList from '../components/AdminOrdersList'
 import AdminUsersList from '../components/AdminUsersList'
 import AdminProductsList from '../components/AdminProductsList'
+import { listProducts } from '../actions/productActions'
+import { listOrders } from '../actions/orderActions'
 
 const AdminDashboardScreen = ({ match, history }) => {
 
@@ -37,20 +39,39 @@ const AdminDashboardScreen = ({ match, history }) => {
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
     const { success, error: errorUpdate } = userUpdateProfile
 
+    console.log(history.location.hash)
+
+
+
     useEffect(() => {
-        if (!userInfo && !userInfo.isAdmin) {
-            history.push('/login')
+        if (!userInfo || !userInfo.isAdmin) {
+            history.push('/admin/login')
         }
         else {
             // if ( !user.name || success) {
             //     dispatch({ type: USER_UPDATE_PROFILE_RESET })
-                
+
             // } 
             // if (!errorUpdate) {
             //     setMode('profile')
             // }
         }
     }, [dispatch, history, userInfo, user, success])
+
+    useEffect(() => {
+        if (history.location.hash === "" || history.location.hash === "#orders") {
+            dispatch({ type: "ORDERS_LIST" })
+        }
+        else if (history.location.hash === "#products") {
+            dispatch({ type: "PRODUCTS_LIST" })
+        }
+        else if (history.location.hash === "#users") {
+            dispatch({ type: "USERS_LIST" })
+        }
+        else if (history.location.hash === "#admin") {
+            dispatch({ type: "USER_INFO" })
+        }
+    }, [])
 
     const checkPassword = () => {
         if (newPassword !== confirmPassword) {
@@ -85,8 +106,8 @@ const AdminDashboardScreen = ({ match, history }) => {
             <Meta title={"Quản trị"} />
             <Row>
                 <AdminFunction />
-                <div className="col-md-9">
-                    <UserInfo/>
+                <div className="col-md-10">
+                    <UserInfo />
                     <AdminOrdersList />
                     <AdminUsersList />
                     <AdminProductsList />

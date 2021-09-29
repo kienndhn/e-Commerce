@@ -54,7 +54,6 @@ const getOrderById = asyncHandler(async (req, res) => {
     'name email'
   )
 
-  //console.log(order)
   if (order) {
     res.json(order)
   } else {
@@ -72,7 +71,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (order) {
     order.isPaid = true
     order.paidAt = Date.now()
-    console.log(req.body)
+    // console.log(req.body)
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
@@ -186,8 +185,8 @@ const getMyOrders = asyncHandler(async (req, res) => {
 })
 
 
-const getOrderByUser = asyncHandler(async(req, res) => {
-  const orders = await Order.find({user: req.params.id})
+const getOrderByUser = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.params.id })
   res.json(orders)
 })
 
@@ -207,8 +206,8 @@ const getOrdersDate = asyncHandler(async (req, res) => {
   }).sort({ createdAt: -1 }).populate('user', 'id name').lean()
   // console.log(orders)
 
-  if (orders){
-    console.log(orders.length)
+  if (orders) {
+    // console.log(orders.length)
     res.json(orders)
   }
   else {
@@ -220,8 +219,35 @@ const getOrdersDate = asyncHandler(async (req, res) => {
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({}).sort({ createdAt: -1 }).populate('user', 'id name')
-  res.json(orders)
+
+
+  const pageSize = 8
+  const page = Number(req.query.pageNumber) || 1
+
+  const keyword = req.query.keyword
+    ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
+    : {}
+
+  var sort = ''
+  if (req.query.sort)
+    sort = JSON.parse(req.query.sort)
+  else
+    sort = JSON.parse('{ "createdAt": -1 }')
+  const count = await Order.countDocuments()
+
+  // console.log(count)
+
+  const orders = await Order.find({})
+    .sort(sort)
+    .populate('user', 'id name')
+    .limit(pageSize).skip(pageSize * (page - 1))
+
+  res.json({ orders, page, pages: Math.ceil(count / pageSize) })
 })
 
 const createMomoPayment = asyncHandler(async (req, res) => {

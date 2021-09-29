@@ -41,7 +41,7 @@ import {
 } from './reducers/addressReducers'
 
 import { momoCreatePaymentReducer } from './reducers/momoReducers'
-import { buttonFunctionReducer } from './reducers/groupbuttonReducers'
+import { buttonFunctionReducer, paginateButtonReducer, productFilterReducer } from './reducers/groupbuttonReducers'
 
 
 const reducer = combineReducers({
@@ -52,7 +52,8 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   // productTopRated: productTopRatedReducer,
-  productOnSale: productOnSaleReducer,
+  // productOnSale: productOnSaleReducer,
+  productFilter: productFilterReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -72,7 +73,8 @@ const reducer = combineReducers({
   orderList: orderListReducer, //orderSortASCReducer,
   momoResult: momoCreatePaymentReducer,
   addressList: addressListReducer,
-  buttonFunction: buttonFunctionReducer
+  buttonFunction: buttonFunctionReducer,
+  paginateButton: paginateButtonReducer,
 })
 
 

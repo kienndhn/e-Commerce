@@ -178,7 +178,9 @@ export const orderListReducer = (state = { orders: [] }, action) => {
       return {
         loading: false,
         orders: action.payload.orders,
-        originOrders: action.payload.originOrders
+        page: action.payload.page,
+        pages: action.payload.pages
+        // originOrders: action.payload.originOrders
       }
     case ORDER_LIST_FAIL:
       return {
@@ -189,25 +191,25 @@ export const orderListReducer = (state = { orders: [] }, action) => {
       return {
         loading: false,
         orders: action.payload.orders,
-        originOrders: action.payload.originOrders
+        // originOrders: action.payload.originOrders
       }
     case SORT_ORDER_BY_PAIR:
       return {
         loading: false,
         orders: action.payload.orders,
-        originOrders: action.payload.originOrders
+        // originOrders: action.payload.originOrders
       }
     case SORT_ORDER_BY_STATUS:
       return {
         loading: false,
         orders: action.payload.orders,
-        originOrders: action.payload.originOrders
+        // originOrders: action.payload.originOrders
       }
     case ORDER_CREATE_AT_DATE:
       return {
         loading: false,
         orders: action.payload.orders,
-        originOrders: action.payload.originOrders
+        // originOrders: action.payload.originOrders
       }
     default:
       return state

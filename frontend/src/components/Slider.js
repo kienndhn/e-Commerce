@@ -5,7 +5,7 @@ const Slider = () => {
         <div id="sliderControls" className="carousel slide" >
             <div className="carousel-inner">
                 <ol className="carousel-indicators">
-                    <li data-target="#sliderControls" data-slide-to="0" class="active"></li>
+                    <li data-target="#sliderControls" data-slide-to="0" className="active"></li>
                     <li data-target="#sliderControls" data-slide-to="1"></li>
                     {/* <li data-target="#sliderControls" data-slide-to="2"></li> */}
                 </ol>

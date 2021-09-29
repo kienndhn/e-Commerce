@@ -11,6 +11,7 @@ import Slider from '../components/Slider'
 import { listProducts, listProductsOnSale, listTopProducts } from '../actions/productActions'
 import ProductGrid from '../components/ProductGrid'
 import ProductFilter from '../components/ProductFilter'
+import Paginate from '../components/Paginate'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -25,13 +26,13 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
-      <Slider />
+      {!keyword&&<Slider />}
       <div className="d-flex ">
         <Meta title={"Trang chủ"} />
 
-        <ProductFilter />
+        <ProductFilter keyword={keyword}/>
 
-        <div role="main" className="col-md-10">
+        <div role="main" className="col"  style={{minHeight:"700px"}}>
 
           {keyword && <Link to='/' className='btn btn-light'>
             Quay lại
@@ -39,7 +40,9 @@ const HomeScreen = ({ match }) => {
 
           {/* <PromoSlick></PromoSlick> */}
 
-          <ProductGrid />
+          <ProductGrid keyword={keyword}/>
+          <Paginate keyword={keyword}/>
+          
         </div>
       </div>
     </>

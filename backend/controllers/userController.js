@@ -141,7 +141,7 @@ const getUsers = asyncHandler(async (req, res) => {
     users[i].password = undefined
     // console.log(users[i]['orders'])
   }
-  console.log(users)
+  // console.log(users)
   
   res.json(users)
 })

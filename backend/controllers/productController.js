@@ -7,7 +7,7 @@ import Product from '../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 10
+  const pageSize = 8
   const page = Number(req.query.pageNumber) || 1
 
   const keyword = req.query.keyword
@@ -19,16 +19,72 @@ const getProducts = asyncHandler(async (req, res) => {
     }
     : {}
 
-  var mysort = ''
+  var sort = ''
   if (req.query.sort)
-    mysort = JSON.parse(req.query.sort)
+    sort = JSON.parse(req.query.sort)
   else
-    mysort = JSON.parse('{ "createdAt": -1 }')
+    sort = JSON.parse('{ "createdAt": -1 }')
 
-  // console.log(req)
-  const products = await Product.find({ ...keyword }).sort(mysort)
+  // console.log(req.query.sort)
 
-  res.json( products )
+  const count = await Product.countDocuments({ ...keyword })
+  const products = await Product.find({ ...keyword })
+    .sort(sort)
+    .limit(pageSize).skip(pageSize * (page - 1))
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
+
+  // res.json(products)
+})
+
+
+const getTopProducts = asyncHandler(async (req, res) => {
+
+  const pageSize = 8
+  const page = Number(req.query.pageNumber) || 1
+
+  const keyword = req.query.keyword
+    ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
+    : {}
+
+  const count = await Product.countDocuments({ ...keyword })
+
+  const products = await Product.find({ ...keyword }).sort({ rating: -1 })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+  // console.log(products)
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
+})
+
+const getProductsOnSale = asyncHandler(async (req, res) => {
+  const pageSize = 8
+  const page = Number(req.query.pageNumber) || 1
+
+  const keyword = req.query.keyword
+    ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
+    : {}
+
+  const count = await Product.countDocuments({ 'onSale.isOnSale': true, ...keyword })
+
+  // console.log(count)
+  const products = await Product.find({ 'onSale.isOnSale': true, ...keyword }).sort({ 'onSale.salePercent': -1 })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+  // res.json({ products, page, pages: Math.ceil(count / pageSize) })
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 
@@ -174,8 +230,8 @@ const createProductReview = asyncHandler(async (req, res) => {
       //   (r) => r.user.toString() === req.user._id.toString()
       // )
       var count = 0;
-      product.reviews.map((entry) =>{
-        if(entry.user.toString() === req.user._id.toString()){
+      product.reviews.map((entry) => {
+        if (entry.user.toString() === req.user._id.toString()) {
           count++
         }
       })
@@ -211,24 +267,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 })
 
 
-const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 })
 
-  res.json(products)
-})
-
-const getProductsOnSale = asyncHandler(async (req, res) => {
-  // const pageSize = 10
-  // const page = Number(req.query.pageNumber) || 1
-
-  const products = await Product.find({ 'onSale.isOnSale': true }).sort({ 'onSale.salePercent': -1 })
-  // .limit(pageSize)
-  // .skip(pageSize * (page - 1))
-
-  // res.json({ products, page, pages: Math.ceil(count / pageSize) })
-
-  res.json(products)
-})
 
 export {
   getProducts,

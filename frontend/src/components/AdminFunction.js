@@ -8,11 +8,11 @@ function AdminFunction() {
     const dispatch = useDispatch()
 
     const buttonFunction = useSelector(state => state.buttonFunction)
-    const {mode} = buttonFunction
+    const { mode } = buttonFunction
 
     return (
 
-        <div className="col-md-3 d-md-block d-none">
+        <div className="col-md-2 d-md-block d-none">
             <div className="text-center" style={{ position: "sticky" }}>
                 {/* <h2>Bộ lọc</h2> */}
                 <h2>Chức năng</h2>
@@ -22,6 +22,7 @@ function AdminFunction() {
                             onClick={(e) => {
                                 // setActive('btn1')
                                 dispatch({ type: "ORDERS_LIST" })
+                                dispatch({ type: "PAGINATE_RESET" })
                             }}>Danh sách đơn hàng</div>
                     </a>
                     <a className="w-100" href="#users">
@@ -29,6 +30,7 @@ function AdminFunction() {
                             onClick={(e) => {
                                 // setActive('btn2')
                                 dispatch({ type: "USERS_LIST" })
+                                dispatch({ type: "PAGINATE_RESET" })
                             }}>Danh sách người dùng</div>
                     </a>
                     <a className="w-100" href="#products">
@@ -36,6 +38,7 @@ function AdminFunction() {
                             onClick={(e) => {
                                 // setActive('btn3')
                                 dispatch({ type: "PRODUCTS_LIST" })
+                                dispatch({ type: "PAGINATE_RESET" })
                             }}>Danh sách sản phẩm</div>
                     </a>
                     <a className="w-100" href="#admin">
@@ -43,6 +46,7 @@ function AdminFunction() {
                             onClick={(e) => {
                                 // setActive('btn4')
                                 dispatch({ type: "USER_INFO" })
+                                dispatch({ type: "PAGINATE_RESET" })
                             }
                             }>Quản trị viên</div>
                     </a>

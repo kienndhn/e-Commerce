@@ -166,7 +166,7 @@ export const payOrder = (orderId, paymentResult) => async (
 }
 
 export const confirmOrder = (order) => async (dispatch, getState) => {
-  console.log(order)
+  // console.log(order)
   try {
     dispatch({
       type: ORDER_CONFIRM_REQUEST,
@@ -406,11 +406,15 @@ export const listOrdersUser = (id) => async (dispatch, getState) => {
   }
 }
 
-export const listOrders = () => async (dispatch, getState) => {
+export const listOrders = (keyword = '', sort = '', pageNumber = '') => async (dispatch, getState) => {
 
   try {
     dispatch({
       type: ORDER_LIST_REQUEST,
+    })
+
+    dispatch({
+      type: "ORDER_LIST"
     })
 
     const {
@@ -423,11 +427,16 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders`, config)
+    const { data } = await axios.get(`/api/orders?keyword=${keyword}&sort=${sort}&pageNumber=${pageNumber}`, config)
 
     dispatch({
       type: ORDER_LIST_SUCCESS,
-      payload: { "orders": data, "originOrders": data }
+      // payload: { "orders": data, "originOrders": data }
+      payload: data
+    })
+    dispatch({
+      type: "PAGINATE_INIT",
+      payload: { page: data.page, pages: data.pages }
     })
   } catch (error) {
     const message =
@@ -447,7 +456,7 @@ export const listOrders = () => async (dispatch, getState) => {
 export const sortOrdersByPriceAscending = () => (dispatch, getState) => {
 
   const { orderList: { originOrders } } = getState()
-  console.log(getState())
+  // console.log(getState())
   const isArray = Array.isArray(originOrders)
 
   // console.log(orders)
@@ -486,7 +495,7 @@ export const orderPairList = () => (dispatch, getState) => {
   const isArray = Array.isArray(originOrders)
   const list = originOrders.filter(order => order.isPaid)
 
-  console.log(list)
+  // console.log(list)
   dispatch({
     type: SORT_ORDER_BY_PAIR,
     payload: { "orders": list, "originOrders": originOrders }
@@ -500,7 +509,7 @@ export const orderNotPairList = () => (dispatch, getState) => {
   const isArray = Array.isArray(originOrders)
   const list = originOrders.filter(order => !order.isPaid)
 
-  console.log(list)
+  // console.log(list)
   dispatch({
     type: SORT_ORDER_BY_PAIR,
     payload: { "orders": list, "originOrders": originOrders }
@@ -511,9 +520,9 @@ export const orderStatusList = (status) => (dispatch, getState) => {
   const { orderList: { originOrders } } = getState()
 
   const isArray = Array.isArray(originOrders)
-  const list = originOrders.filter(order => order.status===status)
+  const list = originOrders.filter(order => order.status === status)
 
-  console.log(list)
+  // console.log(list)
   dispatch({
     type: SORT_ORDER_BY_STATUS,
     payload: { "orders": list, "originOrders": originOrders }

@@ -62,10 +62,11 @@ body {
   color: black !important;
 }
 
-/* th{
-  font-size: 1rem !important;
-  padding: 0 !important;
-} */
+thead{
+  position: sticky;
+  top: 0px;
+  background: white;
+}
 td {
   font-size: 1rem !important;
 }
@@ -96,4 +97,8 @@ td {
   .image-slider {
     height: 100px;
   }
+}
+
+.table {
+  min-height: 300px;
 }

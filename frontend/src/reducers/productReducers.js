@@ -28,26 +28,47 @@ import {
   PRODUCT_ONSALE_FAIL,
 } from '../constants/productConstants'
 
-export const productListReducer = (state = { }, action) => {
+export const productListReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true }
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: action.payload, title: "Tất cả sản phẩm" }
+      return {
+        loading: false,
+        products: action.payload.products,
+        // page: action.payload.page,
+        // pages: action.payload.pages,
+        title: "Tất cả sản phẩm"
+      }
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload }
     case PRODUCT_ONSALE_REQUEST:
       return { loading: true }
     case PRODUCT_ONSALE_SUCCESS:
-      return { loading: false, products: action.payload, title: "Khuyến mãi" }
+      return {
+        loading: false,
+        products: action.payload.products,
+        // page: action.payload.page,
+        // pages: action.payload.pages,
+        title: "Khuyến mãi"
+      }
     case PRODUCT_ONSALE_FAIL:
       return { loading: false, error: action.payload }
     case PRODUCT_TOP_REQUEST:
       return { loading: true }
     case PRODUCT_TOP_SUCCESS:
-      return { loading: false, products: action.payload, title: "Đánh giá cao" }
+      return {
+        loading: false,
+        products: action.payload.products,
+        // page: action.payload.page,
+        // pages: action.payload.pages,
+        title: "Đánh giá cao"
+      }
     case PRODUCT_TOP_FAIL:
       return { loading: false, error: action.payload }
+
+    case "PRODUCT_LIST_RESET":
+      return { loading: true, products: [], title: [] }
     default:
       return state
   }
@@ -142,15 +163,15 @@ export const productReviewCreateReducer = (state = {}, action) => {
 //   }
 // }
 
-export const productOnSaleReducer = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case PRODUCT_ONSALE_REQUEST:
-      return { loading: true, products: [] }
-    case PRODUCT_ONSALE_SUCCESS:
-      return { loading: false, products: action.payload }
-    case PRODUCT_ONSALE_FAIL:
-      return { loading: false, error: action.payload }
-    default:
-      return state
-  }
-}
+// export const productOnSaleReducer = (state = { products: [] }, action) => {
+//   switch (action.type) {
+//     case PRODUCT_ONSALE_REQUEST:
+//       return { loading: true, products: [] }
+//     case PRODUCT_ONSALE_SUCCESS:
+//       return { loading: false, products: action.payload }
+//     case PRODUCT_ONSALE_FAIL:
+//       return { loading: false, error: action.payload }
+//     default:
+//       return state
+//   }
+// }
