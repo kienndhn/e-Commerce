@@ -75,9 +75,9 @@ Sample User Logins
 admin@example.com (Admin)
 123456
 
-john@example.com (Customer)
+user1@user.com (Customer)
 123456
 
-jane@example.com (Customer)
+user2@user.com (Customer)
 123456
 
