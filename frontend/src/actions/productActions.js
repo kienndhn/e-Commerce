@@ -44,7 +44,7 @@ export const listProducts = (keyword = '', sort = '', pageNumber = '') => async 
     })
     dispatch({
       type: "PAGINATE_INIT",
-      payload: { page: data.page, pages: data.pages, sort  }
+      payload: { page: data.page, pages: data.pages, sort }
     })
   } catch (error) {
     dispatch({
