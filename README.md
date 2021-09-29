@@ -1,15 +1,22 @@
 # Project Website thương mại điện tử:
 server: MongoDB và ExpressJS
 client: ReactJS, Redux
+![alt text](https://github.com/kienndhn/e-Commerce/blob/main/frontend/public/images/Screenshot.png?raw=true)
+## Features
+- Shopping cart
+- Product reviews and ratings
+- Top products carousel
+- Product pagination
+- Product search feature
+- User profile with orders
+- Admin product management
+- Admin user management
+- Admin Order details page
+- Mark orders as delivered option
+- Checkout process (shipping, payment method, etc)
+- Database seeder (products & users)
 
-## tính năng
-- Giỏ hàng
-- Đánh giá và nhận xét
-- Danh sách và tìm kiếm sản phẩm
-- Hồ sơ người dùng và đơn hàng
-- Tính năng quản trị viên: CRUD sản phẩm, quản lý đơn hàng
-
-
+## Usage
 ### Env Variables
 
 Create a .env file in then root and add the following
